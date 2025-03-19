@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday NongPaint</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FAD0C4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            padding-top: 10px;
+            margin-bottom: 80px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+        .title {
+            font-size: 24px;
+            color: #ff4b5c;
+        }
+        .countdown {
+            font-size: 20px;
+            margin: 10px 0;
+        }
+        .button {
+            background: #ff4b5c;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .balloon {
+            position: absolute;
+            width: 80px;
+            height: 100px;
+            background: red;
+            border-radius: 50%;
+            bottom: 0;
+            animation: floatUp 5s ease-in-out infinite;
+        }
+        .cake {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            transition: bottom 1s ease-in-out;
+        }
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card" >
+        <h1 class="title">🎉 PAINT's DAY 🎂</h1>
+        <p class="countdown" id="countdown"></p>
+        <button class="button" onclick="showSurprise()">ClickClick! 🎈</button>
+        <p id="message" style="display:none; font-size: 22px; color: #ff4b5c; margin-top: 10px;">Happy Birthday นะน้องเพ้นท์ 
+            <br>ขอให้น้องเพ้นร่างกายเเข็งแรงนะ มีความสุขมากๆนะเพ้นท์  
+            <br>ขอให้ปีนี้เจอแต่สิ่งดีๆ เจอแต่คนที่น่ารักและใจดีกับเธอนะคะ
+            <br>พี่มดภูมิใจในตัวเธอมาตลอดเลยนะ เดี๋ยวไปกินของอร่อยกัน ! 
+            <br>ยิ้มเยอะๆนะน้องเพ้น เวลาที่น้องเพ้นยิ้มมันน่ารักที่สุดเเละะ
+            <br>เพ้นเพ้น เพ้นจุ้บ</p>
+    </div>
+    <div>
+        <img id="cake" class="cake" src="img\cake128.png" alt="Birthday Cake" style="display:none;">
+    </div>
+    
+    
+
+    <script>
+        const birthdayDate = new Date("2025-03-19T22:00:00");
+
+        function updateCountdown() {
+            const now = new Date();
+            const difference = birthdayDate - now;
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((difference / 1000 / 60) % 60);
+            const seconds = Math.floor((difference / 1000) % 60);
+            document.getElementById("countdown").innerText = `${days} วัน ${hours} ชั่วโมง ${minutes} นาที ${seconds} วินาที`;
+        }
+
+        function showSurprise() {
+            document.getElementById("message").style.display = "block";
+            document.getElementById("cake").style.display = "block";
+            setTimeout(() => {
+                document.getElementById("cake").style.bottom = "50px";
+            }, 100);
+            createBalloons();
+        }
+
+        function createBalloons() {
+            for (let i = 0; i < 50; i++) {
+                let balloon = document.createElement("div");
+                balloon.className = "balloon";
+                balloon.style.left = Math.random() * 100 + "vw";
+                balloon.style.background = getRandomColor();
+                balloon.style.animationDuration = (Math.random() * 3 + 2) + "s";
+                document.body.appendChild(balloon);
+                setTimeout(() => balloon.remove(), 6000);
+            }
+        }
+
+        function createBalloons() {
+            const pastelColors = ["#B7B1F2", "#FDB7EA", "#FFDCCC", "#FBF3B9", "#98FB98", "#FFDEAD", "#FFC0CB"];
+            for (let i = 0; i < 20; i++) {
+                let balloon = document.createElement("div");
+                balloon.className = "balloon";
+                balloon.style.left = Math.random() * 100 + "vw";
+                balloon.style.background = pastelColors[Math.floor(Math.random() * pastelColors.length)];
+                balloon.style.animationDuration = (Math.random() * 3 + 2) + "s";
+                document.body.appendChild(balloon);
+                setTimeout(() => balloon.remove(), 7000);
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
